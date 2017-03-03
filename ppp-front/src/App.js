@@ -4,40 +4,67 @@ class App extends Component {
   constructor() {
     super();
 
-
-
   }
 
 
   render() {
     const medianIncome = this.props.medianIncome;
-    console.log(medianIncome);
+
     return (
       <div className="App">
         <div className="App-header">
           <img className="map" src="/Canada_blank_map.svg" />
             <div>
-              <Marker />
+              <Marker medianIncome={this.props.medianIncome} />
             </div>
+              <InfoBox medianIncome={this.props.medianIncome}/>
         </div>
       </div>
     );
   }
 }
 
+
+
 class Marker extends Component {
   render () {
-    let cityLocation = {x: 30, y: 70};
-    let cityLeft = `${cityLocation.x}%`;
-    let cityTop = `${cityLocation.y}%`;
+    const medianIncome = this.props.medianIncome;
+    
+    const marker = medianIncome.map((element, i) => {
+    let cityLeft = `${element.location.x}%`;
+    let cityTop = `${element.location.y}%`;
+
+      return <button className="city" style={{'top': cityTop, 'left': cityLeft}}>{element.city}</button>
+    })
+    console.log(marker);
+
+    console.log(medianIncome)
+    
     return (
       <div>
-        <div className="city" style={{'top': cityTop, 'left': cityLeft}}>
-          First City
-        </div>
+      {marker}
       </div>
     )
   }
 }
+
+
+class InfoBox extends Component {
+  render() {
+    const medianIncome = this.props.medianIncome;
+  
+    return(
+      <div>
+        <div className={"something"? true: false}>
+          <h1>City : {medianIncome[0].cities}</h1>
+          <h2>Median Income : {medianIncome[0].income}$</h2>
+
+        </div>
+      </div>
+    )
+  
+  }
+}
+
 
 export default App;

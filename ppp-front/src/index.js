@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import './index.css';
 
-function MedianIncome (cities, id, x, y, income, year) {
-  this.cities = cities;
+function MedianIncome (city, id, x, y, income, year) {
+  this.city = city;
   this.id = id;
   this.location = {
     x: x,
