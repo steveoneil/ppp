@@ -19,10 +19,10 @@ const screenHeight = 800;
 
 const medianIncome = [
 new MedianIncome("Canada", 0, 0, 0, 78870, 2014),
-new MedianIncome("St. John's", 1, 90, 70, 94060, 2014),
-new MedianIncome("Gatineau", 2, 60, 80, 87060, 2014),
+new MedianIncome("St. John's", 12, 90, 70, 94060, 2014),
+new MedianIncome("Gatineau", 25, 60, 80, 87060, 2014),
 new MedianIncome("Toronto", 3, 50, 90, 75270,	2014),
-new MedianIncome("Calgary", 4, 30, 70, 104530, 2014),
+new MedianIncome("Calgary", 7, 30, 70, 104530, 2014),
 new MedianIncome("Vancouver", 5, 10, 80, 76040,	2014)
 ];
 
