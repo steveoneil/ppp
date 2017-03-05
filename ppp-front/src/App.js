@@ -15,26 +15,19 @@ class App extends Component {
     })
   }
 
-  componentDidUpdate() {
-    console.log(this.state.id)
-  }
-
   render() {
     const medianIncome = this.props.medianIncome;
 
     return (
       <div className="App">
       <h1 className="headertitle">Median Income in Canadian Metropolitan Cities</h1>
-        <div className="App-header">
-          <img className="map" src="/Canada_blank_map.svg" />
+      <div className="App-header">
+        <img className="map" src="/Canada.png" />
           <div>
-          
+            <Marker medianIncome={this.props.medianIncome} handleClick={this.handleClick}/>
+            <InfoBox medianIncome={this.props.medianIncome} id={this.state.id}/>
           </div>
-            <div>
-              <Marker medianIncome={this.props.medianIncome} handleClick={this.handleClick}/>
-            </div>
-              <InfoBox medianIncome={this.props.medianIncome} id={this.state.id}/>
-        </div>
+      </div>
       </div>
     );
   }
@@ -80,7 +73,6 @@ class InfoBox extends Component {
      let trimmedIncome = formatter.format(medianIncome[index].income);
     let cityLeft = `${medianIncome[index].location.x}%`;
     let cityTop = `${medianIncome[index].location.y}%`;
-    console.log(cityLeft, cityTop);
     return(
       <div className="place box" style={{'top': cityTop, 'left': cityLeft}}
       id={medianIncome[index].id}>{medianIncome[index].city}<br/>{trimmedIncome}</div>
