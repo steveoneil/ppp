@@ -50,10 +50,12 @@ class Marker extends Component {
   render () {
     const medianIncomes = this.props.medianIncomes;
     const marker = medianIncomes.map((element, i) => {
-    let cityLeft = `${element.cityLocation.x}%`;
-    let cityTop = `${element.cityLocation.y}%`;
-      return <button key={i} className="place button" style={{'top': cityTop, 'left': cityLeft}}
-      onClick={() => {this.props.handleClick(element.cityId)}} id={element.cityId}>{element.cityName}</button>
+      if (element.display) {
+        let cityLeft = `${element.cityLocation.x}%`;
+        let cityTop = `${element.cityLocation.y}%`;
+          return <button key={i} className="place button" style={{'top': cityTop, 'left': cityLeft}}
+          onClick={() => {this.props.handleClick(element.cityId)}} id={element.cityId}>{element.cityName}</button>
+      }
     })
     return (
       <div>
