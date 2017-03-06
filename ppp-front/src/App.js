@@ -16,7 +16,18 @@ class App extends Component {
   }
 
   render() {
-    const medianIncome = this.props.medianIncome;
+    const medianIncomes = this.props.medianIncomes;
+    const cities = this.props.cities;
+    for (let i = 0; i < medianIncomes.length; i++) {
+      for (let j = 0; j < cities.length; j++) {
+        if (medianIncomes[i].cityId === cities[j].id) {
+          medianIncomes[i].cityName = cities[j].name;
+          medianIncomes[i].cityLocation = cities[j].location;
+          j = cities.length;
+        }
+      }
+    }
+
 
     return (
       <div className="App">
@@ -24,8 +35,8 @@ class App extends Component {
       <div className="App-header">
         <img className="map" src="/Canada.png" />
           <div>
-            <Marker medianIncome={this.props.medianIncome} handleClick={this.handleClick}/>
-            <InfoBox medianIncome={this.props.medianIncome} id={this.state.id}/>
+            <Marker medianIncomes={this.props.medianIncomes} handleClick={this.handleClick}/>
+            <InfoBox medianIncomes={this.props.medianIncomes} id={this.state.id}/>
           </div>
       </div>
       </div>
@@ -37,12 +48,12 @@ class App extends Component {
 
 class Marker extends Component {
   render () {
-    const medianIncome = this.props.medianIncome;
-    const marker = medianIncome.map((element, i) => {
-    let cityLeft = `${element.location.x}%`;
-    let cityTop = `${element.location.y}%`;
+    const medianIncomes = this.props.medianIncomes;
+    const marker = medianIncomes.map((element, i) => {
+    let cityLeft = `${element.cityLocation.x}%`;
+    let cityTop = `${element.cityLocation.y}%`;
       return <button key={i} className="place button" style={{'top': cityTop, 'left': cityLeft}}
-      onClick={() => {this.props.handleClick(element.id)}} id={element.id}>{element.city}</button>
+      onClick={() => {this.props.handleClick(element.cityId)}} id={element.cityId}>{element.cityName}</button>
     })
     return (
       <div>
@@ -63,19 +74,19 @@ class InfoBox extends Component {
    });
 
   
-    const medianIncome = this.props.medianIncome;
+    const medianIncomes = this.props.medianIncomes;
     let index = 0;
-    for (let i = 0; i < medianIncome.length; i++) {
-      if (medianIncome[i].id === this.props.id) {
+    for (let i = 0; i < medianIncomes.length; i++) {
+      if (medianIncomes[i].cityId === this.props.id) {
         index = i;
       }
     }
-     let trimmedIncome = formatter.format(medianIncome[index].income);
-    let cityLeft = `${medianIncome[index].location.x}%`;
-    let cityTop = `${medianIncome[index].location.y}%`;
+    let trimmedIncome = formatter.format(medianIncomes[index].income['2014']);
+    let cityLeft = `${medianIncomes[index].cityLocation.x}%`;
+    let cityTop = `${medianIncomes[index].cityLocation.y}%`;
     return(
       <div className="place box" style={{'top': cityTop, 'left': cityLeft}}
-      id={medianIncome[index].id}>{medianIncome[index].city}<br/>{trimmedIncome}</div>
+      id={medianIncomes[index].cityId}>{medianIncomes[index].cityName}<br/>{trimmedIncome}</div>
     )
   }
 }
